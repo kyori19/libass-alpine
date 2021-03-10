@@ -1,0 +1,8 @@
+services:
+  libass:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        version: 0.15.0
+    image: kyori/libass-alpine
