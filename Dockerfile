@@ -13,26 +13,22 @@ RUN apk add --no-cache ${DEV_PKGS} &&\
   cd /tmp/freetype &&\
   ./autogen.sh &&\
   ./configure --prefix="${PREFIX}" --disable-static --enable-shared &&\
-  make &&\
-  make install &&\
+  make -j$(nproc) install &&\
   # fribidi
   git clone https://github.com/fribidi/fribidi.git /tmp/fribidi -b v1.0.10 --depth 1 &&\
   cd /tmp/fribidi &&\
   ./autogen.sh --prefix="${PREFIX}" --disable-static --enable-shared &&\
-  make &&\
   make install &&\
   # harfbuzz
   git clone https://github.com/harfbuzz/harfbuzz.git /tmp/harfbuzz -b 2.7.4 --depth 1 &&\
   cd /tmp/harfbuzz &&\
   ./autogen.sh --prefix="${PREFIX}" --disable-static --enable-shared &&\
-  make &&\
-  make install &&\
+  make -j$(nproc) install &&\
   # libxml2
   git clone https://gitlab.gnome.org/GNOME/libxml2.git /tmp/libxml2 -b v2.9.10 --depth 1 &&\
   cd /tmp/libxml2 &&\
   ./autogen.sh --prefix="${PREFIX}" --with-ftp=no --with-http=no --with-python=no &&\
-  make &&\
-  make install &&\
+  make -j$(nproc) install &&\
   # fontconfig
   mkdir -p /tmp/fontconfig &&\
   cd /tmp/fontconfig &&\
@@ -42,15 +38,13 @@ RUN apk add --no-cache ${DEV_PKGS} &&\
     for i in doc/*.fncs; do \
       touch -r $i ${i//.fncs/.sgml}; \
     done &&\
-  make &&\
-  make install &&\
+  make -j$(nproc) install &&\
   # libass
   git clone https://github.com/libass/libass.git /tmp/libass -b ${VERSION} --depth 1 &&\
   cd /tmp/libass &&\
   ./autogen.sh &&\
   ./configure --prefix="${PREFIX}" --disable-static --enable-shared &&\
-  make &&\
-  make install &&\
+  make -j$(nproc) install &&\
   rm -rf /tmp/freetype &&\
   rm -rf /tmp/fribidi &&\
   rm -rf /tmp/harfbuzz &&\
